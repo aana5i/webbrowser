@@ -9,13 +9,13 @@ class PageDetail:
     def get_data(self):
         page = self.soup.find('div', {'id': "detail-page"})
         blocs = page.find_all('div', {'class': 'wa-sub-block'})
-        anime_title = self.soup.find('h1', {'class': 'wa-block-title'}).getText().strip()
-        anime_title = anime_title.replace('Animés » ', '').split(' ')[0]
+        title = self.soup.find('h1', {'class': 'wa-block-title'}).getText().strip()
+        title = title.replace('Animés » ', '').split(' ')[0]
         result = {}
 
         bloc_title_list = {
             'Autres': ['seasons', self.get_other_seasons],
-            anime_title: ['details', self.get_details],
+            title: ['details', self.get_details],
             'Synopsis': ['desc', self.get_synopsis],
             'Télécharger': ['links', self.get_links]
         }
