@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import re
 
 
 class PageDetail:
@@ -10,7 +11,7 @@ class PageDetail:
         page = self.soup.find('div', {'id': "detail-page"})
         blocs = page.find_all('div', {'class': 'wa-sub-block'})
         title = self.soup.find('h1', {'class': 'wa-block-title'}).getText().strip()
-        title = title.replace('Animés » ', '').split(' ')[0]
+        title = re.sub(r'[A-zÀ-ÿ]+\s»\s', '', title).split(' ')[0]
         result = {}
 
         bloc_title_list = {
