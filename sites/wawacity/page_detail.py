@@ -65,6 +65,7 @@ class PageDetail:
 
         ref_str = 'Le téléchargement du manga'
         result = ''
+
         for desc in descs:
             synopsis = desc.text
             if synopsis[:len(ref_str)] not in ref_str:
