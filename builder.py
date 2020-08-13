@@ -49,7 +49,7 @@ class Builder:
               'seasons_id integer NOT NULL,' \
               'studio_id integer NOT NULL,' \
               'types_id integer NOT NULL,' \
-              'seasons_id integer NOT NULL,' \
+              'seasons_number integer NOT NULL,' \
               'links text NOT NULL' \
               ');'
 
@@ -66,13 +66,10 @@ class Builder:
         sql7 = 'CREATE TABLE IF NOT EXISTS countrys (id integer PRIMARY KEY, country text NOT NULL);'
 
         db = DB('db/database.db')
-        db.create_table(sql)
-        db.create_table(sql2)
-        db.create_table(sql3)
-        db.create_table(sql4)
-        db.create_table(sql5)
-        db.create_table(sql6)
-        db.create_table(sql7)
+
+        sql_list = [sql, sql2, sql3, sql4, sql5, sql6, sql7]
+        for sl in sql_list:
+            db.create_table(sl)
 
     def insert_in_db(self):
         pass
@@ -81,4 +78,4 @@ class Builder:
 url = 'https://www.wawacity.vip/?p=mangas'
 b = Builder()
 # b.get_data(url)
-b.create_tables()
+# b.create_tables()
