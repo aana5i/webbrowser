@@ -32,50 +32,31 @@ class Builder:
 
         return manga_page.get_data()
 
-    def create_tables(self):
-        sql = 'CREATE TABLE IF NOT EXISTS details (' \
-              'id integer PRIMARY KEY,' \
-              'title text NOT NULL,' \
-              'original_title text NOT NULL,' \
-              'img text NOT NULL,' \
-              'site_link text NOT NULL,' \
-              'synopsis text NOT NULL,' \
-              'date text NOT NULL,' \
-              'years text NOT NULL,' \
-              'author_id integer NOT NULL,' \
-              'gender_id integer NOT NULL,' \
-              'country_id integer NOT NULL,' \
-              'episode_number integer NOT NULL,' \
-              'seasons_id integer NOT NULL,' \
-              'studio_id integer NOT NULL,' \
-              'types_id integer NOT NULL,' \
-              'seasons_number integer NOT NULL,' \
-              'links text NOT NULL' \
-              ');'
+    def insert_process(self, args):
+        result = {}
+        for num, dict in args.items():
+            for keys, values in dict.items():
+                if keys != 'page':
+                    result[keys] = values
+                else:
+                    for key, value in dict['page'].items():
+                        if key == 'details':
+                            for k, v in value.items():
+                                result[k] = v
+                        else:
+                            result[key] = value
+            ''' inset in DB import from create_table'''
 
-        sql2 = 'CREATE TABLE IF NOT EXISTS genders (id integer PRIMARY KEY, gender text NOT NULL);'
-
-        sql3 = 'CREATE TABLE IF NOT EXISTS types (id integer PRIMARY KEY, type text NOT NULL);'
-
-        sql4 = 'CREATE TABLE IF NOT EXISTS seasons ( id integer PRIMARY KEY, seasons integer NOT NULL);'
-
-        sql5 = 'CREATE TABLE IF NOT EXISTS studios (id integer PRIMARY KEY, studio text NOT NULL);'
-
-        sql6 = 'CREATE TABLE IF NOT EXISTS authors (id integer PRIMARY KEY, author text NOT NULL);'
-
-        sql7 = 'CREATE TABLE IF NOT EXISTS countrys (id integer PRIMARY KEY, country text NOT NULL);'
-
-        db = DB('db/database.db')
-
-        sql_list = [sql, sql2, sql3, sql4, sql5, sql6, sql7]
-        for sl in sql_list:
-            db.create_table(sl)
-
-    def insert_in_db(self):
-        pass
-
-
+'''
+a partir d'un fichier text ou de la db, ou du programme, acceder a une liste d'url,
+selon l'url, reconnaitre le site et utilise le bon script
+rechercher toutes les infos de l'anime.
+stocker les resultats dans la db liens dl inclut,
+ajouter le lien vers l'emplacement de l'anime sur le DD
+selectionner le numeros de l'episodes a par puis le comparer au numeros de lepisode dans le titre sur le DD
+ne selectionner que les liens des episodes nno telecharger
+'''
 url = 'https://www.wawacity.vip/?p=mangas'
 b = Builder()
-# b.get_data(url)
+b.get_data(url)
 # b.create_tables()

@@ -25,7 +25,7 @@ class PageList:
 
             res['date'] = b.find('span', {'class': 'date-text text-muted'}).getText().strip()
 
-            res['short_desc'] = b.find('p').getText().strip()
+            # res['short_desc'] = b.find('p').getText().strip()  short desc a construire depuis la db
 
             result[counter] = {k: v for k, v in res.items()}
 
