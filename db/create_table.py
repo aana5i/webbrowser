@@ -26,6 +26,8 @@ class DbBuilder:
               'links text NOT NULL' \
               ');'
 
+
+        # constuire les relations entre les tables
         sql2 = 'CREATE TABLE IF NOT EXISTS genders (id integer PRIMARY KEY, gender text NOT NULL);'
 
         sql3 = 'CREATE TABLE IF NOT EXISTS types (id integer PRIMARY KEY, type text NOT NULL);'
@@ -45,11 +47,10 @@ class DbBuilder:
             self.db.create_table(sl)
 
     def insert_in_db(self, args):
-
-        check_select = 'SELECT title FROM details'
+        check_select = 'SELECT title FROM details'  # checker si l'anime existe deja
 
         if not check_select:
-            sql1 = 'INSERT INTO details'
+            sql1 = 'INSERT INTO details'  # faire les insert dans les bonnes tables et inserer les id ou c'est necessaires
 
         result = {}
         for num, dict in args.items():
